@@ -1,14 +1,34 @@
 import React from 'react'
 import Colors from './Colors'
+import { Link } from 'react-router-dom'
 
-const GalleryCard: React.FC<{ title: string, image: string, artist: string, date: string }> = ({ image, title, artist, date }) => {
+interface GalleryProps {
+    artwork: {
+        artist: string,
+        image: string,
+        title: string,
+        id: number,
+        date: string,
+        handle: string
+    }
 
+}
+
+const GalleryCard: React.FC<GalleryProps> = ({ artwork }) => {
     return (
         <div className="image-element-class" >
-            {/* <img src={image} alt="" /> */}
-            <div>{title}, {date}</div>
-            <div>{artist}</div>
-            <Colors image={image} />
+            <Link
+                to={`/artwork/${artwork.handle}`}
+                state={{ data: 'occupation again' }}
+            >
+                <h1>artworkData.title</h1>
+                <div>
+                    <div>{artwork.title}, {artwork.date}</div>
+                    <div>{artwork.artist}</div>
+                    <Colors image={artwork.image} />
+                </div>
+            </Link>
+
         </div>
     )
 }

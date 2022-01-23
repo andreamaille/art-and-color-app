@@ -12,7 +12,8 @@ interface ItemData {
 	image: string,
 	title: string,
 	id: number,
-	date: string
+	date: string,
+	handle: string
 }
 
 export default function Gallery() {
@@ -31,12 +32,14 @@ export default function Gallery() {
 
 					response.data.forEach((item: any) => {
 						console.log(item)
+
 						const itemData = {
 							artist: item.artist_title,
 							title: item.title,
 							date: item.date_display,
 							image: `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`,
-							id: item.id
+							id: item.id,
+							handle: item.title.replace(/[ ,.]/g, "-").replace(/[()]/g, "").toLowerCase()
 						}
 
 						setItems(items => [...items, itemData] as any)
@@ -53,11 +56,13 @@ export default function Gallery() {
 			)
 	}, [])
 
-
 	const createGalleryCard = items.map(function (item: ItemData) {
 		return (
 			<div>
-				<GalleryCard image={item.image} title={item.title} artist={item.artist} date={item.date} key={`item-${item.id}`} />
+				<GalleryCard
+					key={`item-${item.id}`}
+					artwork={item}
+				/>
 			</div>
 
 		);
