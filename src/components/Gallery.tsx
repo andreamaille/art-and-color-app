@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Masonry from 'react-masonry-component';
 import GalleryCard from './GalleryCard'
+import { ArtworkData } from '../common/types'
 
 const masonryOptions = {
 	transitionDuration: 0,
 	columnWidth: 100
-}
-
-interface ItemData {
-	artist: string,
-	image: string,
-	title: string,
-	id: number,
-	date: string,
-	handle: string
 }
 
 export default function Gallery() {
@@ -31,21 +23,27 @@ export default function Gallery() {
 					setIsLoaded(true);
 
 					response.data.forEach((item: any) => {
-						console.log(item)
 
 						const itemData = {
 							artist: item.artist_title,
 							title: item.title,
 							date: item.date_display,
 							image: `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`,
+							alt: item.thumbnail && item.thumbnail.alt_text,
 							id: item.id,
-							handle: item.title.replace(/[ ,.]/g, "-").replace(/[()]/g, "").toLowerCase()
+							handle: item.title.replace(/[ ,.]/g, "-").replace(/[()]/g, "").toLowerCase(),
+							medium_display: item.medium_display,
+							color_hsl: item.color,
+							place_of_origin: item.place_of_origin,
+							department_title: item.department_title,
+							classification_title: item.classification_title
 						}
 
 						setItems(items => [...items, itemData] as any)
+
+
 					})
 
-					console.log(items)
 
 				},
 				// Note: it's important to handle errors here instead of a catch() block so that we don't swallow exceptions from actual bugs in components.
@@ -56,7 +54,7 @@ export default function Gallery() {
 			)
 	}, [])
 
-	const createGalleryCard = items.map(function (item: ItemData) {
+	const createGalleryCard = items.map(function (item: ArtworkData) {
 		return (
 			<div>
 				<GalleryCard

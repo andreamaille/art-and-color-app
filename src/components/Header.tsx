@@ -1,31 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchBar from './SearchBar'
 import styled from 'styled-components'
 import { FlexContainer, Colors } from '../styles/GlobalStyles.style'
 
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
-export default function Header() {
+const Header: React.FC<{ colors?: string[] }> = ({ colors }) => {
+	const location = useLocation() as any
+	const pathname = location.pathname
+
+	const [bgColor, setBgColor ] = useState('')
+
+	const setColors = bgColor === '' || bgColor === undefined
+	const hasColors = colors && colors.length > 0
+
+	if (setColors && colors && hasColors) {
+		setBgColor(colors[0])
+	}
+
 	return (
-		<StyledHeader>
-			<StyledWrapper>
-				<StyledHeaderContainer >
-					<Link to="/">
-						<h1>Art by Color</h1>
-					</Link>
-					<p>Discover color palettes by exploring art from the Art Institute of Chicago</p>
-				</ StyledHeaderContainer>
-				<StyledHeaderContainer >
-					<SearchBar />
-				</StyledHeaderContainer >
-			</StyledWrapper>
-		</StyledHeader>
-	)
+			<StyledHeader bgColor={bgColor}>
+					<StyledWrapper>
+							<StyledHeaderContainer >
+									<Link to="/">
+											<h1>Art by Color</h1>
+									</Link>
+									<p>Discover color palettes by exploring art from the Art Institute of Chicago</p>
+							</ StyledHeaderContainer>
+							<StyledHeaderContainer >
+									<SearchBar />
+							</StyledHeaderContainer >
+					</StyledWrapper>
+			</StyledHeader>
+    )
 }
 
-const StyledHeader = styled.header`
-	${Colors({ text: 'var(--black)', bg: 'var(--white)' })}
+const StyledHeader = styled.header<{ bgColor: string }>`
 	${FlexContainer({ direction: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' })}
+	background-color: ${props => props.bgColor};
 	height: 125px;
 		h1 {
 			width: 100%;
@@ -45,3 +58,5 @@ const StyledHeaderContainer = styled.div`
 		width: 70%;
 	}
 `
+
+export default Header

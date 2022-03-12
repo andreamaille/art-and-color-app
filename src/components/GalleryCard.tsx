@@ -1,30 +1,19 @@
 import React from 'react'
 import Colors from './Colors'
 import { Link } from 'react-router-dom'
+import { ArtworkDataProps } from '../common/types'
 
-interface GalleryProps {
-    artwork: {
-        artist: string,
-        image: string,
-        title: string,
-        id: number,
-        date: string,
-        handle: string
-    }
-
-}
-
-const GalleryCard: React.FC<GalleryProps> = ({ artwork }) => {
+const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
     return (
         <div className="image-element-class" >
             <Link
                 to={`/artwork/${artwork.handle}`}
-                state={{ data: 'occupation again' }}
+                state={{ data: artwork }}
             >
-                <h1>artworkData.title</h1>
                 <div>
                     <div>{artwork.title}, {artwork.date}</div>
                     <div>{artwork.artist}</div>
+                    
                     <Colors image={artwork.image} />
                 </div>
             </Link>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ColorExtractor } from 'react-color-extractor'
 
-const Colors: React.FC<{ image: string }> = ({ image }) => {
-	const [colors, setColors] = useState([])
+const ColorSwatches: React.FC<{ image: string }> = ({ image }) => {
+  const [colors, setColors] = useState([])
 
 	const renderSwatches = () => {
 		return colors.map((color, id) => {
@@ -21,18 +21,16 @@ const Colors: React.FC<{ image: string }> = ({ image }) => {
 
 	const getColors = (colors: any) => {
 		setColors(colors)
-	}
+  }
+  
+  return (
+    <>
+      <ColorExtractor 
+        getColors={getColors} 
+        src={image}
+      />
 
-	return (
-		<div>
-			<ColorExtractor getColors={getColors}>
-				<img
-					src={image}
-					alt=""
-				/>
-			</ColorExtractor>
-
-			<div
+      <div
 				style={{
 					marginTop: 20,
 					display: 'flex',
@@ -41,8 +39,9 @@ const Colors: React.FC<{ image: string }> = ({ image }) => {
 			>
 				{renderSwatches()}
 			</div>
-		</div>
-	)
+    </>
+  )
+
 }
 
-export default Colors
+export default ColorSwatches
