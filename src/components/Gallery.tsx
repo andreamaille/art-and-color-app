@@ -3,9 +3,16 @@ import Masonry from 'react-masonry-component';
 import GalleryCard from './GalleryCard'
 import { ArtworkData } from '../common/types'
 
+import styled from 'styled-components'
+import { FlexContainer, Colors } from '../styles/GlobalStyles.style'
+
 const masonryOptions = {
 	transitionDuration: 0,
-	columnWidth: 100
+	columnWidth: '.image-element-class',
+	// itemSelector: '.my-gallery-class',
+	gutter: 10,
+	isFitWidth: true,
+	fitWidth: true
 }
 
 export default function Gallery() {
@@ -67,7 +74,7 @@ export default function Gallery() {
 	});
 
 	return (
-		<>
+		<StyledContainer>
 			<Masonry
 				className={'my-gallery-class'} // default ''
 				elementType={'div'} // default 'div'
@@ -77,6 +84,14 @@ export default function Gallery() {
 			>
 				{createGalleryCard}
 			</Masonry>
-		</>
+		</StyledContainer>
 	)
 }
+
+
+const StyledContainer = styled.div`
+	background-color: var(--light-grey);
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 24px;
+`

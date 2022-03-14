@@ -6,21 +6,12 @@ import { FlexContainer, Colors } from '../styles/GlobalStyles.style'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
-const Header: React.FC<{ colors?: string[] }> = ({ colors }) => {
+const Header: React.FC<{ bgColor: string }> = ({ bgColor }) => {
 	const location = useLocation() as any
 	const pathname = location.pathname
 
-	const [bgColor, setBgColor ] = useState('')
-
-	const setColors = bgColor === '' || bgColor === undefined
-	const hasColors = colors && colors.length > 0
-
-	if (setColors && colors && hasColors) {
-		setBgColor(colors[0])
-	}
-
 	return (
-			<StyledHeader bgColor={bgColor}>
+			<StyledHeader color={bgColor}>
 					<StyledWrapper>
 							<StyledHeaderContainer >
 									<Link to="/">
@@ -36,13 +27,16 @@ const Header: React.FC<{ colors?: string[] }> = ({ colors }) => {
     )
 }
 
-const StyledHeader = styled.header<{ bgColor: string }>`
+const StyledHeader = styled.header<{ color: string }>`
 	${FlexContainer({ direction: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' })}
-	background-color: ${props => props.bgColor};
+	background-color: ${props => props.color};
+	box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.49);
 	height: 125px;
+	position: relative;
+	z-index: 10;
 		h1 {
 			width: 100%;
-		}
+		}			
 `
 
 const StyledWrapper = styled.div`
@@ -50,6 +44,7 @@ const StyledWrapper = styled.div`
 	padding: 0 24px;
 	justify-content: space-between;
 	align-items: center;
+	max-width: 1440px;
 `
 
 const StyledHeaderContainer = styled.div`

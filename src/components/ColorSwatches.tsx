@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { ColorExtractor } from 'react-color-extractor'
 
-const ColorSwatches: React.FC<{ image: string }> = ({ image }) => {
+const ColorSwatches: React.FC<{ image: string, numOfSwatches: number }> = ({ image, numOfSwatches }) => {
   const [colors, setColors] = useState([])
 
 	const renderSwatches = () => {
-		return colors.map((color, id) => {
+		const colorSwatches = colors.map((color, id) => {
 			return (
 				<div
 					key={id}
@@ -17,6 +17,8 @@ const ColorSwatches: React.FC<{ image: string }> = ({ image }) => {
 				/>
 			)
 		})
+
+		return colorSwatches.slice(0, numOfSwatches)
 	}
 
 	const getColors = (colors: any) => {

@@ -3,11 +3,11 @@ import Gallery from '../components/Gallery'
 import Header from "../components/Header"
 
 export default function Home() {
-  const defaultColor:string[] = ['blue', 'green', 'red']
-  
+  const defaultColor:string[] = ['#FFFFFF', '#B1BCC8']
+
   return (
     <>
-      <Header colors={defaultColor} />
+      <Header bgColor={defaultColor[0]} />
       <Gallery />
     </>
   )

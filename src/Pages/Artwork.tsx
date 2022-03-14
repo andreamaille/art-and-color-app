@@ -16,15 +16,39 @@ const Artwork: React.FC = (props) => {
   const getColors = (colors: any) => {
     setColors(colors)
   }
+  
+  const [bgColor, setBgColor ] = useState('')
+
+	const hasColors = colors && colors.length > 0
+  const assignColors = colors === undefined || bgColor === ''
+
+  
+	if (assignColors && colors && hasColors) {
+		setBgColor(colors[0])
+  }
+
+  const [pageColors, setPageColors] = useState({})
+  
+  if (assignColors && colors && hasColors) {
+    setPageColors({
+      bgColor: colors[1],
+      cardColor: colors[2]
+    })
+  }
+
+  const artworkData = {
+    ...data,
+    ...pageColors
+  }
 
   return (
     <>
-      <Header colors={colors} />
+      <Header bgColor={bgColor}/>
       <ColorExtractor
         src={data.image}
         getColors={getColors}
       />
-      <ArtworkPage artwork={data} />
+      <ArtworkPage artwork={artworkData} />
     </>
   )
 }

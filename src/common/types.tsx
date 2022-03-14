@@ -38,6 +38,12 @@ export interface ArtworkDataProps {
     },
     place_of_origin: string,
     department_title: string,
-    classification_title: string
+    classification_title: string,
+    bgColor?: string,
+    cardColor?: string
   }
+}
+
+export interface ColorProps {
+
 }
