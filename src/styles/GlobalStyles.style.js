@@ -23,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
 		--light-grey: #F6F7F8;
 		--black: #000;
 		--white: #FFF;
+		--dark-grey: #7e8893;
 
 		--font-size-display: 48px;
 		--font-size-h1: 40px;
@@ -58,7 +59,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	h2 {
-		
+
 	}
 
 	ul, li {

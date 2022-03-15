@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { FetchContext } from '../contexts/FetchContext'
 import Masonry from 'react-masonry-component';
 import GalleryCard from './GalleryCard'
 import { ArtworkData } from '../common/types'
@@ -21,20 +22,41 @@ export default function Gallery() {
 	const [ids, setIds] = useState([]);
 	const [items, setItems] = useState([]);
 
+	const { keyword, setKeyword } = useContext(FetchContext)
+
 	// Note: the empty deps array [] means this useEffect will run once similar to componentDidMount()
 	useEffect(() => {
-		fetch("https://api.artic.edu/api/v1/artworks")
+
+		const fieldsArray = [
+			'artist_title',
+			'title',
+			'date_display',
+			'image_id',
+			'thumbnail',
+			'id',
+			'medium_display',
+			'color',
+			'place_of_origin',
+			'department_title',
+			'classification_title'
+		]
+
+		const fields = fieldsArray.join(",")
+
+		// fetch("https://api.artic.edu/api/v1/artworks?page=2&limit=30")
+		fetch(`https://api.artic.edu/api/v1/artworks/search?q=${keyword}&fields=${fields}&page=2&limit=30`)
 			.then(res => res.json())
 			.then(
 				(response) => {
 					setIsLoaded(true);
+					setItems([])
 
 					response.data.forEach((item: any) => {
-
 						const itemData = {
 							artist: item.artist_title,
 							title: item.title,
 							date: item.date_display,
+							image_id: item.image_id,
 							image: `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`,
 							alt: item.thumbnail && item.thumbnail.alt_text,
 							id: item.id,
@@ -47,10 +69,8 @@ export default function Gallery() {
 						}
 
 						setItems(items => [...items, itemData] as any)
-
-
+		
 					})
-
 
 				},
 				// Note: it's important to handle errors here instead of a catch() block so that we don't swallow exceptions from actual bugs in components.
@@ -59,7 +79,7 @@ export default function Gallery() {
 					setError(error);
 				}
 			)
-	}, [])
+	}, [keyword, setKeyword])
 
 	const createGalleryCard = items.map(function (item: ArtworkData) {
 		return (
