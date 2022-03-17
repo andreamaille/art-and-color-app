@@ -16,7 +16,9 @@ export interface ArtworkData {
   },
   place_of_origin: string,
   department_title: string,
-  classification_title: string
+  classification_title: string,
+  image_width: number,
+  image_height: number
 }
 
 export interface ArtworkDataProps {
@@ -40,7 +42,9 @@ export interface ArtworkDataProps {
     department_title: string,
     classification_title: string,
     bgColor?: string,
-    cardColor?: string
+    cardColor?: string,
+    image_width: number,
+    image_height: number
   }
 }
 

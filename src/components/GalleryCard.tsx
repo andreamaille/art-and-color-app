@@ -1,14 +1,29 @@
-import React, {useContext, createContext } from 'react'
-import Swatch from './Colors'
+import React, {useContext, createContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import Swatch from './Colors'
 import { ArtworkDataProps } from '../common/types'
 import ColorSwatches from './ColorSwatches'
 
 import styled from 'styled-components'
 import { FlexContainer, Colors } from '../styles/GlobalStyles.style'
 
+interface SizeProps {
+    width: number,
+    height: number
+}
+
+const calculateAspectRatioFit = (srcWidth:number, srcHeight:number, maxWidth:number = 400, maxHeight:number = 1000) => {
+    const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight)
+    return { width: srcWidth*ratio, height: srcHeight*ratio }
+}
 
 const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
+    const width = artwork.image_width > 0 ? artwork.image_width : 400
+    const height = artwork.image_height > 0 ? artwork.image_height : 600
+
+    const size = calculateAspectRatioFit(width, height)
 
     return (
         <StyledCard className="image-element-class" key={artwork.id}>
@@ -16,8 +31,8 @@ const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
                 to={`/artwork/${artwork.handle}`}
                 state={{ data: artwork }}
             >
-                <img src={artwork.image} alt={artwork.alt}/>
-                <StyledCardContainer>
+                <img src={artwork.image} alt={artwork.alt} width={size.width} height={size.height}/>
+                <StyledCardContainer> 
                     <StyledTitle>{artwork.title}, {artwork.date}</StyledTitle>
                     <StyledArtistName>{artwork.artist}</StyledArtistName>
                     <StyledFlexContainer>
@@ -33,10 +48,10 @@ const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
 
 const StyledCard = styled.div`
 	background-color: var(--white);
-    width: 275px;
+    width: 330px;
     border-radius: 5px;
     margin-bottom: 16px;
-
+    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.10);
     img {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;

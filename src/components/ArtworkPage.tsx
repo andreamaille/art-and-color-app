@@ -3,7 +3,7 @@ import { ArtworkDataProps } from '../common/types'
 import ColorSwatches from './ColorSwatches'
 
 import styled from 'styled-components'
-import { FlexContainer, Colors } from '../styles/GlobalStyles.style'
+import { FlexContainer } from '../styles/GlobalStyles.style'
 
 const ArtworkPage: React.FC<ArtworkDataProps> = ({ artwork }) => {
   return (
@@ -12,10 +12,15 @@ const ArtworkPage: React.FC<ArtworkDataProps> = ({ artwork }) => {
         <StyledImgContainer>
           <img src={artwork.image} alt={artwork.alt}/>
         </StyledImgContainer>
-        <StyledTextContainer>
-          <h1>{artwork.title}</h1>
-          <h2>{artwork.artist}</h2>
-          <ColorSwatches image={artwork.image} numOfSwatches={5}/>
+        <StyledTextContainer bgColor={artwork.bgColor}>
+          <StyledTextWrapper>
+            <h1>{artwork.title}</h1>
+            <h2>{artwork.artist}</h2>
+            <p>{artwork.date}</p>
+            <p>{artwork.medium_display}</p>
+            <p>{artwork.place_of_origin}</p>
+            <ColorSwatches image={artwork.image} numOfSwatches={5}/>
+          </StyledTextWrapper>
         </StyledTextContainer>
       </StyledWrapper>
     </StyledArtworkPage>
@@ -43,8 +48,16 @@ const StyledImgContainer = styled.div`
   }
 `
 
-const StyledTextContainer = styled.div`
+const StyledTextContainer = styled.div<{ bgColor?: string }>`
   width: 50%;
+  background-color: ${props => props.bgColor};
+  h1 {
+    font-family: var(--font-family-display);
+  }
+`
+
+const StyledTextWrapper = styled.div`
+  padding: 24px;
 `
 
 export default ArtworkPage

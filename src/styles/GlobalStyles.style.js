@@ -25,6 +25,8 @@ export const GlobalStyles = createGlobalStyle`
 		--white: #FFF;
 		--dark-grey: #7e8893;
 
+		--font-family-display: 'Merriweather', serif;
+
 		--font-size-display: 48px;
 		--font-size-h1: 40px;
 		--font-size-h2: 33px;

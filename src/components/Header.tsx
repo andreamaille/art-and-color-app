@@ -32,7 +32,8 @@ const StyledHeader = styled.header<{ color: string }>`
 	background-color: ${props => props.color};
 	box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.49);
 	height: 125px;
-	position: relative;
+	position: sticky;
+	top:0;
 	z-index: 10;
 		h1 {
 			width: 100%;
