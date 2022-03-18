@@ -37,7 +37,7 @@ const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
                     <StyledArtistName>{artwork.artist}</StyledArtistName>
                     <StyledFlexContainer>
                         <StyledColorSwatchContainer>
-                            <ColorSwatches image={artwork.image} numOfSwatches={3} />
+                            <ColorSwatches image={artwork.image} numOfSwatches={4} />
                         </StyledColorSwatchContainer>
                     </StyledFlexContainer>
                 </StyledCardContainer>
@@ -48,7 +48,7 @@ const GalleryCard: React.FC<ArtworkDataProps> = ({ artwork }) => {
 
 const StyledCard = styled.div`
 	background-color: var(--white);
-    width: 330px;
+    width: 345px;
     border-radius: 5px;
     margin-bottom: 16px;
     box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.10);
@@ -60,7 +60,7 @@ const StyledCard = styled.div`
 `
 
 const StyledCardContainer = styled.div`
-    padding: 8px 16px;
+    padding: 8px 16px 18px;
 `
 
 const StyledTitle = styled.p`
@@ -79,6 +79,9 @@ const StyledFlexContainer = styled.div`
     ${FlexContainer({ direction: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', width: '100%' })}
 `
 const StyledColorSwatchContainer = styled.div`
-    width: 60px;
+    width: 100px;
+    div > div {
+        margin-right: 4px;
+    }
 `
 export default GalleryCard
